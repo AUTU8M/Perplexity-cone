@@ -17,16 +17,23 @@ class SearchService:
 
         # now use the trafilatura to scrape data the web pages
         for result in search_results:
-            downloaded = trafilatura.fetch_url(result.get("url")) 
-            # extract the content
-            content = trafilatura.extract(downloaded, include_comments=False)
-
-            results.append(
-                {
-                    "title": result.get("title", ""),
-                    "url": result.get("url"),
-                    "content": content,
-                }
-            )  
+            try:
+                downloaded = trafilatura.fetch_url(result.get("url")) 
+                # extract the content
+                content = trafilatura.extract(downloaded, include_comments=False)
+                
+                # Only add results with valid content
+                if content and content.strip():
+                    results.append(
+                        {
+                            "title": result.get("title", ""),
+                            "url": result.get("url"),
+                            "content": content,
+                        }
+                    )
+                else:
+                    print(f"No content extracted from: {result.get('url')}")
+            except Exception as e:
+                print(f"Error processing URL {result.get('url')}: {e}")
 
         return results

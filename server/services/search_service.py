@@ -27,8 +27,8 @@ class SearchService:
                     results.append(
                         {
                             "title": result.get("title", ""),
-                            "url": result.get("url"),
-                            "content": content,
+                            "url": result.get("url", ""),
+                            "content": content or "",
                         }
                     )
                 else:

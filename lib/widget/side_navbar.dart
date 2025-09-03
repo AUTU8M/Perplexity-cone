@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:perplexity/theme/colors.dart';
 import 'package:perplexity/widget/side_bar_button.dart';
 
-class SideNavbar extends StatefulWidget {
-  const SideNavbar({super.key});
+class SideBar extends StatefulWidget {
+  const SideBar({super.key});
 
   @override
-  State<SideNavbar> createState() => _SideNavbarState();
+  State<SideBar> createState() => _SideBarState();
 }
 
-class _SideNavbarState extends State<SideNavbar> {
+class _SideBarState extends State<SideBar> {
   bool isCollapsed = true;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 100),
-      width: isCollapsed ? 65 : 130,
+      duration: const Duration(milliseconds: 100),
+      width: isCollapsed ? 64 : 150,
       color: AppColors.sideNav,
       child: Column(
         children: [
           const SizedBox(height: 16),
           Icon(
             Icons.auto_awesome_mosaic,
-            size: isCollapsed ? 30 : 45,
             color: AppColors.whiteColor,
+            size: isCollapsed ? 30 : 60,
           ),
           Expanded(
             child: Column(
@@ -33,22 +33,20 @@ class _SideNavbarState extends State<SideNavbar> {
                       ? CrossAxisAlignment.center
                       : CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 24),
                 SideBarButton(
                   isCollapsed: isCollapsed,
                   icon: Icons.add,
-                  text: "HOME",
+                  text: "Home",
                 ),
-
                 SideBarButton(
                   isCollapsed: isCollapsed,
                   icon: Icons.search,
                   text: "Search",
                 ),
-
                 SideBarButton(
                   isCollapsed: isCollapsed,
-                  icon: Icons.public_sharp,
+                  icon: Icons.language,
                   text: "Spaces",
                 ),
                 SideBarButton(
@@ -58,12 +56,10 @@ class _SideNavbarState extends State<SideNavbar> {
                 ),
                 SideBarButton(
                   isCollapsed: isCollapsed,
-                  icon: Icons.cloud_queue,
+                  icon: Icons.cloud_outlined,
                   text: "Library",
                 ),
                 const Spacer(),
-
-                SizedBox(height: 15),
               ],
             ),
           ),
@@ -74,16 +70,18 @@ class _SideNavbarState extends State<SideNavbar> {
               });
             },
             child: AnimatedContainer(
-              duration: Duration(microseconds: 100),
-              margin: EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+              duration: const Duration(milliseconds: 100),
+              margin: EdgeInsets.symmetric(vertical: 14),
               child: Icon(
                 isCollapsed
                     ? Icons.keyboard_arrow_right
                     : Icons.keyboard_arrow_left,
-                color: AppColors.whiteColor,
+                color: AppColors.iconGrey,
+                size: 22,
               ),
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

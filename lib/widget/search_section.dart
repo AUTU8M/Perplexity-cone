@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:perplexity/pages/chat_page.dart';
+import 'package:perplexity/services/chat_web_service.dart';
 import 'package:perplexity/theme/colors.dart';
 import 'package:perplexity/widget/search_button.dart';
 
-class SearchSection extends StatelessWidget {
+class SearchSection extends StatefulWidget {
   const SearchSection({super.key});
+
+  @override
+  State<SearchSection> createState() => _SearchSectionState();
+}
+
+class _SearchSectionState extends State<SearchSection> {
+  final queryController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    queryController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +48,7 @@ class SearchSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
+                  controller: queryController,
                   decoration: InputDecoration(
                     hintText: "Search anything ...",
                     hintStyle: TextStyle(
@@ -59,16 +75,44 @@ class SearchSection extends StatelessWidget {
                       text: 'Attached',
                     ),
                     const Spacer(),
-                    Container(
-                      padding: EdgeInsets.all(9),
-                      decoration: BoxDecoration(
-                        color: AppColors.submitButton,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: AppColors.background,
-                        size: 17,
+                    //i want to connect o my backend here
+                    GestureDetector(
+                      onTap: () {
+                        if (queryController.text.trim().isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please enter a search query')),
+                          );
+                          return;
+                        }
+                        
+                        if (!ChatWebService().isConnected) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('WebSocket not connected. Check your backend server.')),
+                          );
+                          // Still navigate to show the page, but with static data
+                        }
+                        
+                        ChatWebService().chat(queryController.text.trim());
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ChatPage(
+                                  question: queryController.text.trim(),
+                                ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(9),
+                        decoration: BoxDecoration(
+                          color: AppColors.submitButton,
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.background,
+                          size: 17,
+                        ),
                       ),
                     ),
                   ],

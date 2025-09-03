@@ -109,10 +109,10 @@ We're analyzing multiple sources to provide you with the most relevant and accur
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppColors.cardColor.withOpacity(0.3),
+              color: AppColors.cardColor.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 width: 1,
               ),
             ),
@@ -129,7 +129,7 @@ We're analyzing multiple sources to provide you with the most relevant and accur
                   p: TextStyle(
                     fontSize: 15,
                     height: 1.6,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                   h1: TextStyle(
                     fontSize: 24,
@@ -160,7 +160,7 @@ We're analyzing multiple sources to provide you with the most relevant and accur
                   listBullet: TextStyle(color: Colors.blue.shade400),
                   listIndent: 24,
                   blockquoteDecoration: BoxDecoration(
-                    color: AppColors.cardColor.withOpacity(0.5),
+                    color: AppColors.cardColor.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
                       left: BorderSide(color: Colors.blue.shade400, width: 3),
@@ -170,7 +170,7 @@ We're analyzing multiple sources to provide you with the most relevant and accur
                     color: AppColors.cardColor,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),

@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: perplexity-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .Env
+    restart: always
